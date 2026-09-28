@@ -1,0 +1,33 @@
+<?php
+session_start();
+$tituloPagina = "Cadastrar Amigo";
+require_once __DIR__ . '/cabecalho.php';
+?>
+<body>
+<div class="w3-padding w3-content w3-text-grey w3-third w3-display-middle">
+    <?php
+        require_once 'conexaoBD.php';
+        $sql = "INSERT INTO amigo (nome, apelido, email, data_nascimento, cpf)
+        VALUES ('".$_POST['txtNome']."', '".$_POST['txtApelido']."', '".$_POST['txtEmail']."', '".$_POST['txtDataNascimento']."', '".$_POST['txtCPF']."')";
+
+        if ($conexao->query($sql) === TRUE) {
+            echo '
+            <meta http-equiv="refresh" content="2;url=listar.php">
+            <a href="principal.php">
+                <h1 class="w3-button w3-teal">Amigo Salvo com sucesso! </h1>
+            </a>
+            <p class="w3-center w3-text-teal">Redirecionando para a lista...</p>
+            ';
+        } else {
+            echo '
+            <meta http-equiv="refresh" content="2;url=listar.php">
+            <a href="principal.php">
+                <h1 class="w3-button w3-teal">ERRO! </h1>
+            </a>
+            <p class="w3-center w3-text-teal">Redirecionando para a lista...</p>
+            ';
+        }
+        $conexao->close();
+    ?>
+</div>
+<?php require_once ('rodape.php'); ?>
